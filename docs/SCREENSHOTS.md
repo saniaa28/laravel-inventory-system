@@ -90,9 +90,18 @@ Semua gambar ada di folder `docs/screenshots/`. Setiap gambar memperlihatkan ala
 
 ## Alur demo (satu alur lengkap)
 
-1. Login sebagai admin, buka **Products**, klik **+ Add Product** (gambar 07).
-2. Isi SKU `INV-KEY-001` (sudah ada), klik **Save Product**. Muncul "SKU must be unique." dan isian lama tetap terisi (gambar 13).
-3. Ganti SKU menjadi SKU baru lalu simpan.
-4. Aplikasi mengarahkan ke daftar produk dengan pesan sukses dan produk baru tampil.
+Satu alur utuh: membuka form, validasi, simpan, redirect, lalu data tampil.
 
-Alur kode: Route, `StoreProductRequest`, `ProductController@store`, model `Product`, tabel `products`, lalu redirect ke `products.index`.
+**1. Membuka form** (`GET /products/create`)
+
+![Form tambah produk](screenshots/07-products-create.png)
+
+**2. Validasi gagal.** SKU `INV-KEY-001` sudah ada, sehingga muncul "SKU must be unique." dan isian lama tetap terisi.
+
+![Validasi SKU duplikat](screenshots/13-validasi-sku-duplikat.png)
+
+**3. Simpan dan redirect.** SKU diganti menjadi `INV-DEMO-001` lalu disimpan. Aplikasi mengarahkan ke `/products` dengan pesan sukses, dan produk baru langsung tampil di daftar.
+
+![Produk berhasil ditambahkan](screenshots/25-demo-simpan-berhasil.png)
+
+Alur kode: Route, `StoreProductRequest`, `ProductController@store`, model `Product`, tabel `products`, lalu redirect ke `products.index`. Penjelasan lengkapnya ada di [`mvc-architecture.md`](mvc-architecture.md).
