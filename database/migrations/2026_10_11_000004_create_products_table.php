@@ -6,25 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('sku')->unique(); 
-            $table->string('name');
+            // restrictOnDelete: kategori yang masih dipakai produk tidak bisa dihapus
+            $table->foreignId('category_id')->constrained()->restrictOnDelete();
+            $table->string('sku', 80)->unique();
+            $table->string('name', 150);
             $table->text('description')->nullable();
-            $table->integer('stock')->default(0);
             $table->decimal('price', 15, 2)->default(0);
+            // unsigned: stok tidak bisa negatif di level database
+            $table->unsignedInteger('stock')->default(0);
+            $table->unsignedInteger('minimum_stock')->default(5);
             $table->timestamps();
+
+            $table->index('name');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('products');

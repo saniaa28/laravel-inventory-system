@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    // Tabel penghubung many-to-many antara products dan suppliers.
+    public function up(): void
+    {
+        Schema::create('product_supplier', function (Blueprint $table) {
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('supplier_id')->constrained()->cascadeOnDelete();
+            $table->decimal('supplier_price', 15, 2)->default(0);
+            $table->timestamps();
+
+            $table->primary(['product_id', 'supplier_id']);
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('product_supplier');
+    }
+};
