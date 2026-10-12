@@ -1,65 +1,98 @@
-# Panduan Screenshot dan Alur Demo
+# Screenshot dan Alur Demo
 
-Simpan semua gambar di folder `docs/screenshots/` dengan nama sesuai daftar. Pastikan alamat browser dan akun yang login ikut terlihat.
+Semua gambar ada di folder `docs/screenshots/`. Setiap gambar memperlihatkan alamat browser dan akun yang sedang login.
 
-## A. Screenshot Route (terminal)
+## A. Terminal
 
-| Nama file | Perintah | Yang terlihat |
-| --- | --- | --- |
-| `01-route-list.png` | `php artisan route:list --except-vendor` | route resource `products.*`, `categories.*`, dan seterusnya |
-| `02-migrate-fresh-seed.png` | `php artisan migrate:fresh --seed` | semua migration dan seeder berstatus DONE |
-| `03-php-artisan-test.png` | `php artisan test` | semua test PASS |
+### 01. Daftar route (`php artisan route:list --except-vendor`)
+![Route list bagian 1](screenshots/01-route-list-1.png)
+![Route list bagian 2 (37 route)](screenshots/01-route-list-2.png)
 
-## B. Screenshot CRUD (login sebagai admin)
+### 02. Migration dan seeder (`php artisan migrate:fresh --seed`)
+![Migration dan seeder bagian 1](screenshots/02-migrate-fresh-seed-1.png)
+![Seeder bagian 2](screenshots/02-migrate-fresh-seed-2.png)
 
-| Nama file | Halaman | Yang dilakukan |
-| --- | --- | --- |
-| `04-products-index.png` | `/products` | daftar produk dengan pagination |
-| `05-products-search-filter.png` | `/products` | isi search atau filter, tampilkan alamat dengan query string |
-| `06-products-page2.png` | `/products?page=2` | halaman 2, query string tetap terbawa |
-| `07-products-create.png` | `/products/create` | form tambah produk |
-| `08-products-edit.png` | `/products/{id}/edit` | form edit, kolom stok terkunci |
-| `09-products-show.png` | `/products/{id}` | detail produk, supplier, dan transaksi |
-| `10-products-delete.png` | `/products` | hapus produk tanpa histori, tampilkan pesan sukses |
-| `11-categories.png` | `/categories` | daftar dan form kategori |
-| `12-suppliers.png` | `/suppliers` | daftar supplier, tab Active dan Archived |
+### 03. Test (`php artisan test`, 20 test lulus)
+![Test bagian 1](screenshots/03-php-artisan-test-1.png)
+![Test bagian 2 (20 passed)](screenshots/03-php-artisan-test-2.png)
 
-## C. Screenshot Validasi dan Aturan Bisnis
+## B. CRUD (login sebagai admin)
 
-| Nama file | Cara membuat | Pesan yang muncul |
-| --- | --- | --- |
-| `13-validasi-sku-duplikat.png` | tambah produk dengan SKU `INV-KEY-001` | SKU must be unique. |
-| `14-validasi-stok-awal-nol.png` | tambah produk dengan Initial Stock `0` | Initial stock must be greater than zero. |
-| `15-stock-out-melebihi-stok.png` | Stock Out Monitor 24" dengan Quantity `999` | Insufficient stock. Available stock: 7 units. |
-| `16-hapus-produk-berhistori.png` | hapus Wireless Mouse | Product cannot be deleted because it already has stock history. |
-| `17-hapus-kategori-terpakai.png` | hapus kategori Electronics | Category cannot be deleted because products still use it. |
+### 04. Daftar produk dengan pagination
+![Daftar produk](screenshots/04-products-index.png)
 
-## D. Screenshot Blade
+### 05. Search dan filter (query string terlihat di alamat)
+![Search produk](screenshots/05-products-search-filter.png)
 
-| Nama file | Halaman |
-| --- | --- |
-| `18-login.png` | `/login` |
-| `19-dashboard.png` | `/dashboard` |
-| `20-stock-in-berhasil.png` | Stock History setelah Stock In |
-| `21-reports.png` | `/reports` |
-| `22-users.png` | `/users` |
+### 06. Halaman 2 (query string tetap terbawa)
+![Produk halaman 2](screenshots/06-products-page2.png)
 
-## E. Screenshot Akses Terlarang
+### 07. Form tambah produk
+![Form tambah produk](screenshots/07-products-create.png)
 
-Login sebagai `staff` (password `staff123`), lalu buka `http://127.0.0.1:8000/users`.
+### 08. Form edit produk (stok terkunci, perubahan stok lewat Stock In/Out)
+![Form edit produk](screenshots/08-products-edit.png)
 
-| Nama file | Yang terlihat |
-| --- | --- |
-| `23-staff-dashboard.png` | dashboard dengan akun staff dan menu tanpa Users |
-| `24-staff-403.png` | halaman 403 Forbidden |
+### 09. Detail produk: informasi, supplier, dan transaksi
+![Detail produk](screenshots/09-products-show.png)
+![Transaksi stok terakhir](screenshots/09-products-show-transaksi.png)
 
-## Alur Demo (satu alur lengkap)
+### 10. Hapus produk tanpa histori
+![Produk berhasil dihapus](screenshots/10-products-delete.png)
 
-Slide 48 meminta satu alur: membuka form, validasi, simpan, redirect, tampilkan data.
+### 11. Kategori
+![Daftar kategori](screenshots/11-categories.png)
 
-1. Login sebagai admin, buka **Products**, klik **+ Add Product**. Ambil screenshot form kosong.
-2. Isi SKU `INV-KEY-001` (sudah ada), klik **Save Product**. Muncul error "SKU must be unique." dan isian lama tetap terisi. Ambil screenshot.
-3. Ganti SKU menjadi `INV-DEMO-001`, klik **Save Product**.
-4. Aplikasi mengarahkan ke daftar produk dengan pesan "Product added successfully." Produk baru tampil. Ambil screenshot.
+### 12. Supplier (tab Active dan Archived)
+![Daftar supplier](screenshots/12-suppliers.png)
 
-Saat presentasi, jelaskan sambil menunjuk alurnya: Route → `StoreProductRequest` → `ProductController@store` → model `Product` → tabel `products` → redirect ke `products.index`.
+## C. Validasi dan aturan bisnis
+
+### 13. SKU duplikat
+![SKU must be unique](screenshots/13-validasi-sku-duplikat.png)
+
+### 14. Stok awal nol
+![Initial stock must be greater than zero](screenshots/14-validasi-stok-awal-nol.png)
+
+### 15. Stock Out melebihi stok
+![Insufficient stock](screenshots/15-stock-out-melebihi-stok.png)
+
+### 16. Hapus produk yang punya histori
+![Produk tidak bisa dihapus](screenshots/16-hapus-produk-berhistori.png)
+
+### 17. Hapus kategori yang masih dipakai
+![Kategori tidak bisa dihapus](screenshots/17-hapus-kategori-terpakai.png)
+
+## D. Tampilan Blade
+
+### 18. Login
+![Halaman login](screenshots/18-login.png)
+
+### 19. Dashboard
+![Dashboard admin](screenshots/19-dashboard.png)
+
+### 20. Stock In berhasil, tampil di Stock History
+![Stock History setelah Stock In](screenshots/20-stock-in-berhasil.png)
+
+### 21. Laporan (SUM dan AVG per produk)
+![Laporan inventaris](screenshots/21-reports.png)
+
+### 22. Manajemen user
+![Daftar user](screenshots/22-users.png)
+
+## E. Akses terlarang (login sebagai staff)
+
+### 23. Dashboard staff, menu tanpa Users
+![Dashboard staff](screenshots/23-staff-dashboard.png)
+
+### 24. Staff membuka `/users` dan mendapat 403
+![403 Forbidden](screenshots/24-staff-403.png)
+
+## Alur demo (satu alur lengkap)
+
+1. Login sebagai admin, buka **Products**, klik **+ Add Product** (gambar 07).
+2. Isi SKU `INV-KEY-001` (sudah ada), klik **Save Product**. Muncul "SKU must be unique." dan isian lama tetap terisi (gambar 13).
+3. Ganti SKU menjadi SKU baru lalu simpan.
+4. Aplikasi mengarahkan ke daftar produk dengan pesan sukses dan produk baru tampil.
+
+Alur kode: Route, `StoreProductRequest`, `ProductController@store`, model `Product`, tabel `products`, lalu redirect ke `products.index`.

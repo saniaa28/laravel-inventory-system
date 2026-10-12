@@ -14,7 +14,8 @@ class ProductFactory extends Factory
         return [
             'category_id'   => Category::factory(),
             'sku'           => 'INV-'.strtoupper(fake()->unique()->bothify('???-###')),
-            'name'          => ucfirst(fake()->unique()->words(3, true)),
+            'name'          => fake()->randomElement(['Wireless', 'USB-C', 'Bluetooth', 'Portable', 'Ergonomic', 'Gaming', 'Premium', 'Compact'])
+                               .' '.fake()->randomElement(['Webcam', 'Headset', 'Speaker', 'Laptop Stand', 'Desk Lamp', 'Power Bank', 'Monitor Arm', 'Notebook', 'Flash Drive', 'Cable Organizer']),
             'description'   => fake()->sentence(),
             'price'         => fake()->numberBetween(10, 500) * 1000,
             'stock'         => fake()->numberBetween(1, 60),
